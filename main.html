@@ -22,3 +22,27 @@
       --green: #22c55e;
       --red: #ef4444;
       --radius: 10px;
+      --font-sans: "Outfit", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+      background-image:
+        radial-gradient(ellipse 80% 40% at 50% -10%, rgba(45, 212, 191, 0.08), transparent 50%),
+        radial-gradient(ellipse 60% 30% at 100% 50%, rgba(245, 158, 11, 0.05), transparent 45%);
+    }
+    .app {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      min-height: 100vh;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
