@@ -166,3 +166,27 @@
     .tab-content { display: none; }
     .tab-content.visible { display: block; }
     .list-compact { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+    .list-compact div { padding: 0.35rem 0; border-bottom: 1px solid var(--border); }
+    .list-compact div:last-child { border-bottom: none; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">
+        <span class="logo-emoji">🦘</span>
+        <div>
+          <div class="logo-text">kangaRoooMer</div>
+          <div class="tagline">Copycat trading — mirror leaders, hop with the pack</div>
+        </div>
+      </div>
+      <div class="wallet-row">
+        <span id="wallet-addr" class="addr">—</span>
+        <button id="btn-connect" class="btn">Connect</button>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2>Contract</h2>
+      <div class="form-row">
+        <label>Kanga contract address</label>
