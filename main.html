@@ -406,3 +406,27 @@
         const tokenOut = (document.getElementById("trail-tokenOut").value || "").trim();
         const amountIn = (document.getElementById("trail-amountIn").value || "0").trim();
         const amountOutMin = (document.getElementById("trail-amountOutMin").value || "0").trim();
+        const deadline = (document.getElementById("trail-deadline").value || "9999999999").trim();
+        if (!follower.startsWith("0x") || !tokenIn.startsWith("0x") || !tokenOut.startsWith("0x") || !amountIn || amountIn === "0") {
+          showMsg(actionMsg, "Fill valid addresses and non-zero amount.", "err");
+          return;
+        }
+        showMsg(actionMsg, "Confirm in wallet…", "ok");
+        try {
+          const tx = await contract.executeTrail(follower, tokenIn, tokenOut, BigInt(amountIn), BigInt(amountOutMin), BigInt(deadline));
+          await tx.wait();
+          showMsg(actionMsg, "Trail executed. Tx: " + tx.hash.slice(0, 12) + "…", "ok");
+          refreshStats();
+        } catch (e) {
+          showMsg(actionMsg, e.message || "Tx failed.", "err");
+        }
+      });
+
+      document.getElementById("btn-open-replica").addEventListener("click", async () => {
+        if (!contract || !signer) { showMsg(actionMsg, "Connect wallet and set contract.", "err"); return; }
+        const follower = (document.getElementById("replica-follower").value || "").trim();
+        const tokenIn = (document.getElementById("replica-tokenIn").value || "").trim();
+        const tokenOut = (document.getElementById("replica-tokenOut").value || "").trim();
+        const amountIn = (document.getElementById("replica-amountIn").value || "0").trim();
+        if (!follower.startsWith("0x") || !tokenIn.startsWith("0x") || !tokenOut.startsWith("0x")) {
+          showMsg(actionMsg, "Fill valid addresses and amount.", "err");
