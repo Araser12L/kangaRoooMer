@@ -502,3 +502,10 @@
           const list = document.getElementById("sessions-list");
           list.innerHTML = ids.slice(0, 20).map((id, i) => "<div>Session ID: " + id.toString() + "</div>").join("");
         } catch (e) {
+          document.getElementById("sessions-list").textContent = "Error: " + (e.message || "load failed");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
