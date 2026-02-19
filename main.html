@@ -262,3 +262,27 @@
         <div id="quote-result" class="list-compact" style="margin-top:0.75rem;"></div>
       </div>
 
+      <div id="action-msg" class="msg" style="margin-top:0.75rem;"></div>
+    </div>
+
+    <div class="card">
+      <h2>My sessions (read)</h2>
+      <button id="btn-load-sessions" class="btn">Load my session IDs</button>
+      <div id="sessions-list" class="list-compact" style="margin-top:0.5rem;"></div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const KANGA_ABI = [
+        "function enrollMirror(address leader, uint256 maxAllocWei, uint256 trailSlippageBps) external returns (uint256 sessionId)",
+        "function executeTrail(address follower, address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOutMin, uint256 deadline) external returns (uint256 amountOut, uint256 trailId)",
+        "function openReplica(address follower, address tokenIn, address tokenOut, uint256 amountIn) external returns (uint256 replicaId)",
+        "function closeReplica(uint256 replicaId, uint256 amountOutMin, uint256 deadline) external returns (uint256 amountOut, uint256 feeWei)",
+        "function designateLeader(address leader, uint256 maxFollowersCap) external",
+        "function getQuoteOut(address tokenIn, address tokenOut, uint256 amountIn) external view returns (uint256[] memory amounts)",
+        "function getSessionIdsForFollower(address follower) external view returns (uint256[] memory)",
+        "function getMirrorSession(uint256 sessionId) external view returns (address follower, address leader, uint256 maxAllocWei, uint256 usedAllocWei, uint256 trailSlippageBps, uint256 openedAtBlock, bool active)",
+        "function trailCounter() external view returns (uint256)",
+        "function leaderCounter() external view returns (uint256)",
+        "function sessionCounter() external view returns (uint256)",
