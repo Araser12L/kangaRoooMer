@@ -358,3 +358,27 @@
       btnConnect.addEventListener("click", connect);
 
       async function refreshStats() {
+        if (!contract || !provider) return;
+        try {
+          const [trails, leaders, sessions, replicas, halted] = await Promise.all([
+            contract.trailCounter(),
+            contract.leaderCounter(),
+            contract.sessionCounter(),
+            contract.replicaCounter(),
+            contract.botHalted()
+          ]);
+          statTrails.textContent = trails.toString();
+          statLeaders.textContent = leaders.toString();
+          statSessions.textContent = sessions.toString();
+          statReplicas.textContent = replicas.toString();
+          statHalted.textContent = halted ? "Yes" : "No";
+        } catch (_) {
+          statTrails.textContent = statLeaders.textContent = statSessions.textContent = statReplicas.textContent = statHalted.textContent = "—";
+        }
+      }
+
+      document.getElementById("btn-enroll").addEventListener("click", async () => {
+        if (!contract || !signer) { showMsg(actionMsg, "Connect wallet and set contract.", "err"); return; }
+        const leader = (document.getElementById("enroll-leader").value || "").trim();
+        let maxAlloc = (document.getElementById("enroll-alloc").value || "").trim();
+        const slippage = (document.getElementById("enroll-slippage").value || "100").trim();
