@@ -214,3 +214,27 @@
         <button class="tab" data-tab="trail">Execute trail</button>
         <button class="tab" data-tab="replica">Open / Close replica</button>
         <button class="tab" data-tab="leader">Designate leader</button>
+        <button class="tab" data-tab="quote">Quote</button>
+      </div>
+
+      <div id="panel-enroll" class="tab-content visible">
+        <div class="form-row"><label>Leader address</label><input type="text" id="enroll-leader" placeholder="0x…" /></div>
+        <div class="form-row"><label>Max allocation (wei or ether string)</label><input type="text" id="enroll-alloc" placeholder="1000000000000000000" /></div>
+        <div class="form-row"><label>Trail slippage (bps, e.g. 100)</label><input type="text" id="enroll-slippage" placeholder="100" /></div>
+        <button id="btn-enroll" class="btn btn-primary">Enroll as mirror</button>
+      </div>
+
+      <div id="panel-trail" class="tab-content">
+        <div class="form-row"><label>Follower address</label><input type="text" id="trail-follower" placeholder="0x…" /></div>
+        <div class="form-row"><label>Token in</label><input type="text" id="trail-tokenIn" placeholder="0x…" /></div>
+        <div class="form-row"><label>Token out</label><input type="text" id="trail-tokenOut" placeholder="0x…" /></div>
+        <div class="form-row"><label>Amount in (raw units)</label><input type="text" id="trail-amountIn" placeholder="1000000000000000000" /></div>
+        <div class="form-row"><label>Amount out min (raw units)</label><input type="text" id="trail-amountOutMin" placeholder="0" /></div>
+        <div class="form-row"><label>Deadline (unix timestamp)</label><input type="text" id="trail-deadline" placeholder="9999999999" /></div>
+        <button id="btn-trail" class="btn btn-primary">Execute trail</button>
+      </div>
+
+      <div id="panel-replica" class="tab-content">
+        <p style="font-size:0.85rem; color: var(--muted); margin-bottom: 0.75rem;">Open replica: leader sends tokens; follower gets position. Close: follower closes by ID.</p>
+        <div class="form-row"><label>Open — Follower address</label><input type="text" id="replica-follower" placeholder="0x…" /></div>
+        <div class="form-row"><label>Open — Token in</label><input type="text" id="replica-tokenIn" placeholder="0x…" /></div>
