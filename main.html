@@ -478,3 +478,27 @@
       document.getElementById("btn-quote").addEventListener("click", async () => {
         if (!contract || !provider) { showMsg(actionMsg, "Set contract first.", "err"); return; }
         const tokenIn = (document.getElementById("quote-tokenIn").value || "").trim();
+        const tokenOut = (document.getElementById("quote-tokenOut").value || "").trim();
+        const amountIn = (document.getElementById("quote-amountIn").value || "0").trim();
+        if (!tokenIn.startsWith("0x") || !tokenOut.startsWith("0x")) {
+          document.getElementById("quote-result").innerHTML = "Invalid token addresses.";
+          return;
+        }
+        try {
+          const amounts = await contract.getQuoteOut(tokenIn, tokenOut, BigInt(amountIn));
+          const out = amounts.length ? amounts[amounts.length - 1] : 0n;
+          document.getElementById("quote-result").innerHTML = "<div>Amounts: " + amounts.map(a => a.toString()).join(", ") + "</div><div>Est. out: " + out.toString() + "</div>";
+        } catch (e) {
+          document.getElementById("quote-result").innerHTML = "Error: " + (e.message || "quote failed");
+        }
+      });
+
+      document.getElementById("btn-load-sessions").addEventListener("click", async () => {
+        if (!contract || !signer) { document.getElementById("sessions-list").textContent = "Connect and set contract."; return; }
+        try {
+          const addr = await signer.getAddress();
+          const ids = await contract.getSessionIdsForFollower(addr);
+          if (!ids.length) { document.getElementById("sessions-list").innerHTML = "<div>No sessions</div>"; return; }
+          const list = document.getElementById("sessions-list");
+          list.innerHTML = ids.slice(0, 20).map((id, i) => "<div>Session ID: " + id.toString() + "</div>").join("");
+        } catch (e) {
