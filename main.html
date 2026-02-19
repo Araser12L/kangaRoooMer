@@ -382,3 +382,27 @@
         const leader = (document.getElementById("enroll-leader").value || "").trim();
         let maxAlloc = (document.getElementById("enroll-alloc").value || "").trim();
         const slippage = (document.getElementById("enroll-slippage").value || "100").trim();
+        if (!leader || !leader.startsWith("0x")) { showMsg(actionMsg, "Invalid leader address.", "err"); return; }
+        try {
+          if (maxAlloc.includes(".")) maxAlloc = ethers.parseEther(maxAlloc).toString();
+          else if (!maxAlloc) maxAlloc = "1000000000000000000";
+        } catch (_) { }
+        const slippageBps = parseInt(slippage, 10) || 100;
+        showMsg(actionMsg, "Confirm in wallet…", "ok");
+        try {
+          const tx = await contract.enrollMirror(leader, BigInt(maxAlloc), slippageBps);
+          await tx.wait();
+          showMsg(actionMsg, "Enrolled. Tx: " + tx.hash.slice(0, 12) + "…", "ok");
+          refreshStats();
+        } catch (e) {
+          showMsg(actionMsg, e.message || "Tx failed.", "err");
+        }
+      });
+
+      document.getElementById("btn-trail").addEventListener("click", async () => {
+        if (!contract || !signer) { showMsg(actionMsg, "Connect wallet and set contract.", "err"); return; }
+        const follower = (document.getElementById("trail-follower").value || "").trim();
+        const tokenIn = (document.getElementById("trail-tokenIn").value || "").trim();
+        const tokenOut = (document.getElementById("trail-tokenOut").value || "").trim();
+        const amountIn = (document.getElementById("trail-amountIn").value || "0").trim();
+        const amountOutMin = (document.getElementById("trail-amountOutMin").value || "0").trim();
