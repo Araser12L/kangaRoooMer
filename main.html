@@ -334,3 +334,27 @@
       });
 
       async function connect() {
+        if (typeof window.ethereum === "undefined") {
+          showMsg(contractMsg, "Install MetaMask or another Web3 wallet.", "err");
+          return;
+        }
+        try {
+          provider = new ethers.BrowserProvider(window.ethereum);
+          const accounts = await provider.send("eth_requestAccounts", []);
+          if (!accounts.length) return;
+          signer = await provider.getSigner();
+          const addr = await signer.getAddress();
+          walletEl.textContent = addr.slice(0, 6) + "…" + addr.slice(-4);
+          btnConnect.textContent = "Connected";
+          btnConnect.disabled = true;
+          if (contractAddress) {
+            contract = new ethers.Contract(contractAddress, KANGA_ABI, signer);
+            refreshStats();
+          }
+        } catch (e) {
+          showMsg(contractMsg, e.message || "Connection failed.", "err");
+        }
+      }
+      btnConnect.addEventListener("click", connect);
+
+      async function refreshStats() {
