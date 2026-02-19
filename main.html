@@ -142,3 +142,27 @@
     }
     input::placeholder { color: var(--muted); }
     label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.25rem; }
+    .form-row { margin-bottom: 0.75rem; }
+    .msg { font-size: 0.85rem; padding: 0.5rem; border-radius: var(--radius); margin-top: 0.5rem; }
+    .msg.err { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+    .msg.ok { background: rgba(34, 197, 94, 0.15); color: var(--green); }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .tab.active { background: var(--panel); color: var(--accent); border-color: var(--accent); }
+    .tab:hover:not(.active) { color: var(--text); }
+    .tab-content { display: none; }
+    .tab-content.visible { display: block; }
+    .list-compact { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
