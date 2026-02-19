@@ -190,3 +190,27 @@
       <h2>Contract</h2>
       <div class="form-row">
         <label>Kanga contract address</label>
+        <input type="text" id="contract-address" placeholder="0x…" />
+      </div>
+      <button id="btn-set-contract" class="btn btn-primary">Set contract</button>
+      <div id="contract-msg"></div>
+    </div>
+
+    <div class="card">
+      <h2>Stats</h2>
+      <div class="stats-row">
+        <div class="stat"><div class="stat-label">Trails</div><div id="stat-trails" class="stat-value">—</div></div>
+        <div class="stat"><div class="stat-label">Leaders</div><div id="stat-leaders" class="stat-value">—</div></div>
+        <div class="stat"><div class="stat-label">Sessions</div><div id="stat-sessions" class="stat-value">—</div></div>
+        <div class="stat"><div class="stat-label">Replicas</div><div id="stat-replicas" class="stat-value">—</div></div>
+        <div class="stat"><div class="stat-label">Halted</div><div id="stat-halted" class="stat-value">—</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Actions</h2>
+      <div class="tabs">
+        <button class="tab active" data-tab="enroll">Enroll mirror</button>
+        <button class="tab" data-tab="trail">Execute trail</button>
+        <button class="tab" data-tab="replica">Open / Close replica</button>
+        <button class="tab" data-tab="leader">Designate leader</button>
