@@ -430,3 +430,27 @@
         const amountIn = (document.getElementById("replica-amountIn").value || "0").trim();
         if (!follower.startsWith("0x") || !tokenIn.startsWith("0x") || !tokenOut.startsWith("0x")) {
           showMsg(actionMsg, "Fill valid addresses and amount.", "err");
+          return;
+        }
+        showMsg(actionMsg, "Confirm in wallet…", "ok");
+        try {
+          const tx = await contract.openReplica(follower, tokenIn, tokenOut, BigInt(amountIn));
+          await tx.wait();
+          showMsg(actionMsg, "Replica opened. Tx: " + tx.hash.slice(0, 12) + "…", "ok");
+          refreshStats();
+        } catch (e) {
+          showMsg(actionMsg, e.message || "Tx failed.", "err");
+        }
+      });
+
+      document.getElementById("btn-close-replica").addEventListener("click", async () => {
+        if (!contract || !signer) { showMsg(actionMsg, "Connect wallet and set contract.", "err"); return; }
+        const replicaId = (document.getElementById("replica-close-id").value || "1").trim();
+        const amountOutMin = (document.getElementById("replica-amountOutMin").value || "0").trim();
+        const deadline = (document.getElementById("replica-deadline").value || "9999999999").trim();
+        showMsg(actionMsg, "Confirm in wallet…", "ok");
+        try {
+          const tx = await contract.closeReplica(parseInt(replicaId, 10), BigInt(amountOutMin), BigInt(deadline));
+          await tx.wait();
+          showMsg(actionMsg, "Replica closed. Tx: " + tx.hash.slice(0, 12) + "…", "ok");
+          refreshStats();
