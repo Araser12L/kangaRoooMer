@@ -286,3 +286,27 @@
         "function trailCounter() external view returns (uint256)",
         "function leaderCounter() external view returns (uint256)",
         "function sessionCounter() external view returns (uint256)",
+        "function replicaCounter() external view returns (uint256)",
+        "function botHalted() external view returns (bool)",
+        "event MirrorEnrolled(address indexed follower, address indexed leader, uint256 maxAllocWei, uint256 trailSlippageBps, uint256 sessionId, uint256 atBlock)",
+        "event TrailExecuted(address indexed leader, address indexed follower, address tokenIn, address tokenOut, uint256 amountIn, uint256 amountOut, uint256 trailId, uint256 atBlock)"
+      ];
+
+      let provider, signer, contractAddress = "", contract = null;
+
+      const walletEl = document.getElementById("wallet-addr");
+      const btnConnect = document.getElementById("btn-connect");
+      const contractInput = document.getElementById("contract-address");
+      const btnSetContract = document.getElementById("btn-set-contract");
+      const contractMsg = document.getElementById("contract-msg");
+      const actionMsg = document.getElementById("action-msg");
+      const statTrails = document.getElementById("stat-trails");
+      const statLeaders = document.getElementById("stat-leaders");
+      const statSessions = document.getElementById("stat-sessions");
+      const statReplicas = document.getElementById("stat-replicas");
+      const statHalted = document.getElementById("stat-halted");
+
+      function showMsg(container, text, type) {
+        container.innerHTML = text ? `<div class="msg ${type}">${text}</div>` : "";
+      }
+
