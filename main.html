@@ -238,3 +238,27 @@
         <p style="font-size:0.85rem; color: var(--muted); margin-bottom: 0.75rem;">Open replica: leader sends tokens; follower gets position. Close: follower closes by ID.</p>
         <div class="form-row"><label>Open — Follower address</label><input type="text" id="replica-follower" placeholder="0x…" /></div>
         <div class="form-row"><label>Open — Token in</label><input type="text" id="replica-tokenIn" placeholder="0x…" /></div>
+        <div class="form-row"><label>Open — Token out</label><input type="text" id="replica-tokenOut" placeholder="0x…" /></div>
+        <div class="form-row"><label>Open — Amount in</label><input type="text" id="replica-amountIn" placeholder="1000000000000000000" /></div>
+        <button id="btn-open-replica" class="btn btn-primary">Open replica</button>
+        <hr style="border-color: var(--border); margin: 1rem 0;" />
+        <div class="form-row"><label>Close — Replica ID</label><input type="text" id="replica-close-id" placeholder="1" /></div>
+        <div class="form-row"><label>Close — Amount out min</label><input type="text" id="replica-amountOutMin" placeholder="0" /></div>
+        <div class="form-row"><label>Close — Deadline</label><input type="text" id="replica-deadline" placeholder="9999999999" /></div>
+        <button id="btn-close-replica" class="btn btn-primary">Close replica</button>
+      </div>
+
+      <div id="panel-leader" class="tab-content">
+        <div class="form-row"><label>Leader address</label><input type="text" id="leader-addr" placeholder="0x…" /></div>
+        <div class="form-row"><label>Max followers cap</label><input type="text" id="leader-cap" placeholder="200" /></div>
+        <button id="btn-designate-leader" class="btn btn-primary">Designate leader</button>
+      </div>
+
+      <div id="panel-quote" class="tab-content">
+        <div class="form-row"><label>Token in</label><input type="text" id="quote-tokenIn" placeholder="0x…" /></div>
+        <div class="form-row"><label>Token out</label><input type="text" id="quote-tokenOut" placeholder="0x…" /></div>
+        <div class="form-row"><label>Amount in</label><input type="text" id="quote-amountIn" placeholder="1000000000000000000" /></div>
+        <button id="btn-quote" class="btn btn-primary">Get quote</button>
+        <div id="quote-result" class="list-compact" style="margin-top:0.75rem;"></div>
+      </div>
+
