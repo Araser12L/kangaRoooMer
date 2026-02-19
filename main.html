@@ -454,3 +454,27 @@
           await tx.wait();
           showMsg(actionMsg, "Replica closed. Tx: " + tx.hash.slice(0, 12) + "…", "ok");
           refreshStats();
+        } catch (e) {
+          showMsg(actionMsg, e.message || "Tx failed.", "err");
+        }
+      });
+
+      document.getElementById("btn-designate-leader").addEventListener("click", async () => {
+        if (!contract || !signer) { showMsg(actionMsg, "Connect wallet and set contract.", "err"); return; }
+        const leader = (document.getElementById("leader-addr").value || "").trim();
+        const cap = (document.getElementById("leader-cap").value || "200").trim();
+        if (!leader.startsWith("0x")) { showMsg(actionMsg, "Invalid leader address.", "err"); return; }
+        showMsg(actionMsg, "Confirm in wallet…", "ok");
+        try {
+          const tx = await contract.designateLeader(leader, parseInt(cap, 10));
+          await tx.wait();
+          showMsg(actionMsg, "Leader designated. Tx: " + tx.hash.slice(0, 12) + "…", "ok");
+          refreshStats();
+        } catch (e) {
+          showMsg(actionMsg, e.message || "Tx failed.", "err");
+        }
+      });
+
+      document.getElementById("btn-quote").addEventListener("click", async () => {
+        if (!contract || !provider) { showMsg(actionMsg, "Set contract first.", "err"); return; }
+        const tokenIn = (document.getElementById("quote-tokenIn").value || "").trim();
